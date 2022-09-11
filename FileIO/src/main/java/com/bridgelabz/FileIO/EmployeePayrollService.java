@@ -1,5 +1,6 @@
 package com.bridgelabz.FileIO;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,5 +25,14 @@ public class EmployeePayrollService {
         for(EmployeePayRoll employeePayRoll : list){
             System.out.println(employeePayRoll.toString());
         }
+    }
+    public static boolean deleteFiles(File contentsToDelete) {
+        File[] allContents = contentsToDelete.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteFiles(file);
+            }
+        }
+        return contentsToDelete.delete();
     }
 }
