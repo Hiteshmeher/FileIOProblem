@@ -1,5 +1,6 @@
 package com.bridgelabz.FileIO;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,4 +20,13 @@ public class EmployeeFileIOService {
             System.out.println(e);
         }
     }
+
+    public void printData() {
+        try {
+            Files.lines(new File( PAYROLL_FILE_NAME ).toPath()).forEach(System.out::println);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
