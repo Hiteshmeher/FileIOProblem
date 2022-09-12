@@ -13,54 +13,44 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EmployeePayRollTest {
-    private static String HOME = "E:\\JAVA2\\day27FileIO\\FileIOProblem\\FileIO\\src";
-    private static String PLAY_WITH_NIO = "TempPlayGround";
+    private static String FILE_PATH = "E:\\JAVA2\\day27FileIO\\FileIOProblem\\FileIO\\src";
+    private static String PERFORM_FILE_IO = "Test_IO_Operations";
 
     @Test
-    public void givenPathWhenCheckedThenConfirm() throws IOException {
-        /**
-         * Check File exists
-         */
-        Path homePath = Paths.get(HOME);
+    public void givenPathChecked_ThenConfirm() throws IOException {
+        // check if file exists
+        Path homePath = Paths.get(FILE_PATH);
         Assertions.assertTrue(Files.exists(homePath));
-        System.out.println(homePath);
 
-        /**
-         * Delete file and check file does not exist
-         */
-        Path playPath = Paths.get(HOME + "/" + PLAY_WITH_NIO);
-        if (Files.exists(playPath))
-            EmployeePayrollService.deleteFiles(playPath.toFile());
-        assertTrue(Files.notExists(playPath));
 
-        /**
-         * Create a directory
-         */
-        Files.createDirectory(playPath);
-        assertTrue(Files.exists(playPath));
+        // Delete file and check file not exist
+        Path operationsPath = Paths.get(FILE_PATH+"/"+PERFORM_FILE_IO);
+        if (Files.exists(operationsPath))  {
+            EmployeeFile.deleteFiles(operationsPath.toFile());
+        }
+        Assertions.assertTrue(Files.notExists(operationsPath));
 
-        /**
-         * Create File
-         */
-        IntStream.range(1, 10).forEach(cntr -> {
-            Path tempFile = Paths.get(playPath + "/temp" + cntr);
-            assertTrue(Files.notExists(tempFile));
-            try {
-                Files.createFile(tempFile);
-            } catch (IOException e) {
-            }
-            assertTrue(Files.exists(tempFile));
+
+        // Create directory
+        Files.createDirectory(operationsPath);
+        Assertions.assertTrue(Files.exists(operationsPath));
+
+
+        // Create file
+        IntStream.range(1,10).forEach(i->{
+            Path testFile = Paths.get(operationsPath+"/test"+i);
+            Assertions.assertTrue(Files.notExists(testFile));
+            try{
+                Files.createFile(testFile);
+            }catch(IOException e){}
+            Assertions.assertTrue(Files.exists(testFile));
         });
 
-        /**
-         * List files, directories as well as files with extensions
-         */
-        System.out.println("Files.list");
-        Files.list(playPath).filter(Files::isRegularFile).forEach(System.out::println);
-        System.out.println("Files.newDirectory");
-        Files.newDirectoryStream(playPath).forEach(System.out::println);
-        System.out.println("Files.newDirectory with temp");
-        Files.newDirectoryStream(playPath, path -> path.toFile().isFile() && path.toString().contains("temp"))
-                .forEach(System.out::println);
+        // List Files, Directories as well as Files with extension
+        Files.list(operationsPath).filter(Files::isRegularFile).forEach(System.out::println);
+        Files.newDirectoryStream(operationsPath).forEach(System.out::println);
+        Files.newDirectoryStream(operationsPath, path -> path.toFile().isFile() &&
+                path.toString().startsWith("test")).forEach(System.out::println);
+
     }
 }
