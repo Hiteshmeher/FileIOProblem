@@ -18,10 +18,6 @@ public class EmployeePayrollMain {
         public static void main(String[] args) {
             System.out.println("Employee payroll service program");
 
-            EmployeePayrollMain employeePayrollService = new EmployeePayrollMain();
-            //employeePayrollService.readEmployeePayrollData();
-            //employeePayrollService.writeEmployeePayrollData();
-
             EmployeeFileIOService fileIO = new EmployeeFileIOService();
             List<EmployeePayRoll> list = new ArrayList<>();
             list.add(new EmployeePayRoll(1,"Hitesh",25000));
