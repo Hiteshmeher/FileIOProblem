@@ -24,7 +24,7 @@ public class EmployeePayrollMain {
             list.add(new EmployeePayRoll(2,"Kumar",30000));
             list.add(new EmployeePayRoll(3,"Meher",40000));
             fileIO.writeDataToFile(list);
-
+            fileIO.printData();
         }
 
         public void readEmployeePayrollData(){
